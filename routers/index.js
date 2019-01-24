@@ -1,27 +1,16 @@
-const Router = require('koa-router');
-const controllers = require('../controllers')
+const path = require('path')
 
-const router = new Router();
+const router = require('koa-router')()
 
-router.get('/', async (ctx) => {
-    ctx.body = 'Welcome'
+router.get('/', async ctx => {
+    ctx.body = 'welcome'
 })
-    .get('/api/cars', controllers.car.find)
+// 默认导出当前文件夹下的映射
+const routers = require('../tools/mapDir')(path.join(__dirname))
 
-    .post('/api/cars', controllers.car.insert)
+Object.keys(routers).forEach(key => {
+    if (key !== 'index')
+        router.use(routers[key].routes())
+})
 
-    .get('/api/cars/:id', controllers.car.findById)
-
-    .delete('/api/cars/:id', controllers.car.delete)
-
-    .post('/api/register', controllers.user.register)
-
-    .post('/api/login', controllers.user.login)
-
-    .post('/api/magnets', controllers.magnet.find)
-
-    .get('/api/magnets/:id', controllers.magnet.findById)
-
-    .post('/api/user/:username', controllers.user.edit_user)
-
-module.exports = router;
+module.exports = router
