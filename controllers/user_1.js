@@ -5,7 +5,7 @@ const User = require('../db/schemas/user')
 const tool = require('../tools/tool')
 const SMS = require('../db/schemas/sms')
 const SMS_client = require('../tools/sms-sdk')
-const config = require('../config/config')
+const config = require('../config')
 
 /**
  * 账户密码登录业务处理
