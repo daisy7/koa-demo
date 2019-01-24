@@ -1,12 +1,12 @@
 var redis = require('redis');
-var config = require('../config/config');
+var config = require('../config');
 var redisEnable = config.redis.enable;
 const logger = require('log4js').getLogger('redis.js');
-const defaultExpired = parseInt(require('../config/config').redis.expired)
+const defaultExpired = parseInt(config.redis.expired)
 
 if (redisEnable) {
     // use custom redis url or localhost
-    var client = redis.createClient(config.redis.port || 6379, config.redis.host || 'localhost');
+    var client = redis.createClient(config.redis.port, config.redis.host);
     client.on('connected', function (err) {
         logger.info('Redis connection open to ' + config.redis.host + ':' + config.redis.port);
     });
