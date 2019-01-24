@@ -14,12 +14,16 @@
     "@alicloud/sms-sdk": "^1.1.6",
     "bcrypt-nodejs": "0.0.3",
     "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.3",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-jwt": "^3.5.1",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
     "log4js": "^3.0.6",
     "mongoose": "^5.4.0",
-    "redis": "^2.8.0"
+    "mysql": "^2.16.0",
+    "redis": "^2.8.0",
+    "wafer-node-sdk": "^1.4.5"
   }
 }
