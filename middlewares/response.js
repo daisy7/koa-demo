@@ -2,7 +2,7 @@ const log4js = require('log4js'); // 日志
 const path = require('path');
 const logger = require('log4js').getLogger('response.js')
 // 加载日志配置文件
-log4js.configure(path.resolve(__dirname, '..', 'config', 'log4j.json'));
+log4js.configure(path.resolve(__dirname, '..', 'log4j.json'));
 const fn = log4js.connectLogger(log4js.getLogger('http'), { level: 'trace' });
 /**
  * 响应处理模块
@@ -20,12 +20,12 @@ module.exports = async (ctx, next) => {
         // 处理响应结果
         // 如果直接写入在 body 中，则不作处理
         // 如果写在 ctx.body 为空，则使用 state 作为响应
-        // if (JSON.stringify(ctx.state) !== '{}') {
+        if(JSON.stringify(ctx.state)==='{}')
+            return
+
         if (ctx.state.message)
             ctx.state.code = -1
 
-        if (ctx.state.code === undefined)
-            return
         ctx.body = ctx.body ? ctx.body : {
             code: ctx.state.code !== undefined ? ctx.state.code : 0,
             data: ctx.state.data !== undefined ? ctx.state.data : {},
