@@ -1,4 +1,4 @@
-const dbUrl = require('../config/config').dbUrl
+const dbUrl = require('../config').mongodb.host
 
 const mongoose = require('mongoose');
 
