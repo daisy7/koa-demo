@@ -2,13 +2,13 @@
  * 云通信基础能力业务短信发送、查询详情以及消费消息示例，供参考。
  * Created on 2017-07-31
  */
-const SMSClient = require('@alicloud/sms-sdk')
-const sms_conf = require('../config/config').sms
+const sms_conf = require('../config').sms
 // ACCESS_KEY_ID/ACCESS_KEY_SECRET 根据实际申请的账号信息进行替换
 const accessKeyId = sms_conf.accessKeyId
 const secretAccessKey = sms_conf.secretAccessKey
 //初始化sms_client
 if (sms_conf.enable) {
+    const SMSClient = require('@alicloud/sms-sdk')
     let smsClient = new SMSClient({ accessKeyId, secretAccessKey })
 }
 const Model = require('../db/schemas/sms')
