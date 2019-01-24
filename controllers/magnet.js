@@ -1,6 +1,6 @@
 const redis = require('../db/redis')
 const Model = require('../db/schemas/magnet')
-const config = require('../config/config');
+const config = require('../config');
 const tool = require('../tools/tool')
 const redisEnable = config.redis.enable;
 
