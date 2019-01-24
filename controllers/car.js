@@ -1,6 +1,6 @@
 const redis = require('../db/redis')
-const Model = require('../db/schemas/car')
-const config = require('../config/config');
+const Car = require('../db/schemas/car')
+const config = require('../config');
 const tool = require('../tools/tool')
 const redisEnable = config.redis.enable;
 
@@ -33,7 +33,7 @@ module.exports = {
             options.skip = (page - 1) * size;
             options.limit = size;
             let query = getQuery(params)
-            result = await Model.find(query, {}, options);
+            result = await Car.find(query, {}, options);
             if (result.length <= 0) {
                 return ctx.state = {
                     message: '未查询到参数为 ' + JSON.stringify(params) + ' 的数据',
@@ -56,7 +56,7 @@ module.exports = {
         }
         let result = null;
         try {
-            result = await Model.findById(id);
+            result = await Car.findById(id);
         } catch (error) {
             return ctx.state = {
                 message: '未查询到id为 ' + id + ' 数据'
@@ -74,24 +74,24 @@ module.exports = {
                 message: 'name参数值不能为空'
             }
         }
-        let result = await Model.findOne({ name })
+        let result = await Car.findOne({ name })
         if (result) {
             if (result.status == 0) {
                 return ctx.state = {
                     message: '已经存在name为 ' + name + ' 的数据'
                 }
             }
-            await Model.update({ name }, { status: 0 })
+            await Car.update({ name }, { status: 0 })
             return ctx.state = {
                 data: result
             }
         }
-        let model = {
-            name: name,
-        }
-        result = await Model.insert(model);;
+        let model = new Car ({
+            name: name
+        })
+        result = await model.save();
         return ctx.state = {
-            data: result
+            data: result,
         }
     },
 
@@ -102,7 +102,7 @@ module.exports = {
                 message: 'id参数值不能为空'
             }
         }
-        let result = await Model.update({ _id: id }, { status: 1 });
+        let result = await Car.update({ _id: id }, { status: 1 });
         if (result.nModified <= 0) {
             return ctx.state = {
                 message: '删除失败，检查id是否正确'
