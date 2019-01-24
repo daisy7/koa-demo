@@ -1,6 +1,6 @@
 const Koa = require('koa')
 const app = new Koa();
-const config = require('./config/config')
+const config = require('./config')
 const bodyParser = require('koa-bodyparser');
 const koajwt = require('koa-jwt')
 const logger = require('log4js').getLogger('app.js')
@@ -13,11 +13,11 @@ app.use(bodyParser());
 app.use(response)
 
 //验证token
-app.use(koajwt({
-    secret: 'my_token'
-}).unless({
-    path: [/\/login/, /\/register/,"/"]
-}));
+// app.use(koajwt({
+//     secret: 'my_token'
+// }).unless({
+//     path: [/\/login/, /\/register/,"/"]
+// }));
 
 // 引入路由分发
 const router = require('./routers')
