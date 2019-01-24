@@ -1,5 +1,5 @@
 'use strict'
-const mongoose = require('mongoose')
+const mongoose = require('../../db')
 
 var magnet = new mongoose.Schema({
     infohash: { type: String, required: true },
